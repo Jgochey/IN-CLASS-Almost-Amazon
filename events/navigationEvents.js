@@ -1,4 +1,7 @@
+/* eslint-disable no-undef */
 import { signOut } from '../utils/auth';
+import { getBooks, booksOnSale } from '../api/bookData';
+import { showBooks } from '../pages/books';
 
 // navigation events
 const navigationEvents = () => {
@@ -8,11 +11,13 @@ const navigationEvents = () => {
 
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
+    booksOnSale().then(showBooks);
     console.warn('CLICKED SALE BOOKS');
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
+    getBooks().then(showBooks);
     console.warn('CLICKED ALL BOOKS');
   });
 
@@ -22,6 +27,7 @@ const navigationEvents = () => {
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
     console.warn('CLICKED AUTHORS');
+    getBooks().then(showBooks);
   });
 
   // STRETCH: SEARCH
