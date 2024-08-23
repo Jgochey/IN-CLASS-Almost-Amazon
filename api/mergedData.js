@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 // for merged promises
 
-import { getSingleBook } from './bookData';
-import { getSingleAuthor } from './authorData';
+import { getSingleBook, deleteBook } from './bookData';
+import { getSingleAuthor, deleteSingleAuthor, getAuthorBooks } from './authorData';
 
 // TODO Get data for viewBook
 const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -15,9 +15,23 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
   // Create an object that has book data and an object named authorObject
 });
 
-export default getSingleBook;
+const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleAuthor(firebaseKey).then((authorObject) => {
+    getSingleBook(authorObject.firebaseKey)
+      .then((bookObject) => resolve({ ...authorObject, bookObject }));
+  }).catch(reject);
+  // GET AUTHOR
+  // Create an object that has book data and an object named authorObject
+});
 
-// Rando: viewBook wants an object?
-// const bookMergedData = { ...bookObject, authorObject }
-// console.warn(bookMergedData, "bookMergedData");
-// Tgis is a spread, i have no idea what it means but it might come up?
+const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getAuthorBooks(firebaseKey).then((authorBooksArray) => {
+    const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
+
+    Promise.all(deleteBookPromises).then(() => {
+      deleteSingleAuthor(firebaseKey).then(resolve);
+    });
+  }).catch(reject);
+});
+
+export { deleteAuthorBooksRelationship, getBookDetails, getAuthorDetails };
