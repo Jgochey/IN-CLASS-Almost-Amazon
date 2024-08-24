@@ -49,14 +49,15 @@ const formEvents = () => {
       const payload = {
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
-        favorite: false,
+        favorite: document.querySelector('#favorite').checked,
         email: document.querySelector('#email').value,
+        uid: '',
       };
 
       createAuthor(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
 
-        updateBook(patchPayload).then(() => {
+        updateAuthor(patchPayload).then(() => {
           getAuthors().then(showAuthors);
         });
       });
@@ -65,9 +66,9 @@ const formEvents = () => {
     if (e.target.id.includes('update-author')) {
       const [, firebaseKey] = e.target.id.split('--');
       const payload = {
-        firstName: document.querySelector('#first_name').value,
-        lastName: document.querySelector('#last_name').value,
-        favorite: document.querySelector('#favorite').value,
+        first_name: document.querySelector('#first_name').value,
+        last_name: document.querySelector('#last_name').value,
+        favorite: document.querySelector('#favorite').checked,
         email: document.querySelector('#email').value,
         firebaseKey,
       };
