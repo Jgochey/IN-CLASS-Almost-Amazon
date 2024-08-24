@@ -1,12 +1,11 @@
-// /* eslint-disable no-undef */
 import { getAuthorBooks } from '../api/authorData';
 import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
+// import { getAuthorBooks } from '../api/authorData';
+// import { getAuthorDetails } from '../api/mergedData';
 
 const viewAuthor = (obj) => {
   clearDom();
-
-  const bookZone = getAuthorBooks;
 
   const domString = `
       <div class="card" style="width: 18rem;">
@@ -20,7 +19,7 @@ const viewAuthor = (obj) => {
 
             <hr>
             <h4> Books </h4>
-            <div id="authorBookList">${bookZone}</div>
+            <div id="authorBookList">${getAuthorBooks(obj.firebaseKey)}</div>
         </div>
       </div>
       `;
@@ -29,8 +28,6 @@ const viewAuthor = (obj) => {
 };
 
 // This should display all the author's books too.
-// bookZone is currently just displaying code, not the books themselves.
-// Also the edit author button is just creating a new one instead of changing the exisitng one.
-// Also also, creating a new author does not automatically add the firebaseKey to it, making deleting impossible.
+// Also deleting an author does not delete their books too.
 
 export default viewAuthor;
