@@ -1,7 +1,10 @@
+import firebase from 'firebase';
 import { createBook, updateBook, getBooks } from '../api/bookData';
 import { showBooks } from '../pages/books';
 import { createAuthor, getAuthors, updateAuthor } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
+
+// const userID = `${firebase.auth().currentUser.uid}`;
 
 const formEvents = () => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -15,6 +18,7 @@ const formEvents = () => {
         price: document.querySelector('#price').value,
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
+        uid: `${firebase.auth().currentUser.uid}`,
       };
 
       createBook(payload).then(({ name }) => {
@@ -51,7 +55,7 @@ const formEvents = () => {
         last_name: document.querySelector('#last_name').value,
         favorite: document.querySelector('#favorite').checked,
         email: document.querySelector('#email').value,
-        uid: '',
+        uid: `${firebase.auth().currentUser.uid}`,
       };
 
       createAuthor(payload).then(({ name }) => {

@@ -7,17 +7,16 @@ import navigationEvents from '../events/navigationEvents';
 import { getBooks } from '../api/bookData';
 import { showBooks } from '../pages/books';
 
-const startApp = () => {
-  domBuilder(); // BUILD THE DOM
-  domEvents(); // ADD THE EVENT LISTENTERS TO THE DOM
-  formEvents(); // ADD FORM EVENT LISTENTERS TO THE DOM
-  navBar(); // DYNAMICALLY ADD THE NAV
-  logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT
-  navigationEvents(); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
+const startApp = (user) => {
+  domBuilder(user); // ADD USER SO THAT YOU CAN UPDATE CALLS
+  domEvents(user); // ADD USER SO THAT YOU CAN UPDATE CALLS
+  formEvents(user); // ADD USER SO THAT YOU CAN UPDATE CALLS
+  navBar();
+  logoutButton();
+  navigationEvents();
 
   // TODO: Put all books on the DOM on App load
-  // eslint-disable-next-line no-undef
-  getBooks().then((books) => showBooks(books));
+  getBooks(user.uid).then((books) => showBooks(books));
 };
 
 export default startApp;
