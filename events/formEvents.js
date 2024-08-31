@@ -25,7 +25,7 @@ const formEvents = () => {
         const patchPayload = { firebaseKey: name };
 
         updateBook(patchPayload).then(() => {
-          getBooks().then(showBooks);
+          getBooks(`${firebase.auth().currentUser.uid}`).then((books) => showBooks(books));
         });
       });
     }
@@ -62,7 +62,7 @@ const formEvents = () => {
         const patchPayload = { firebaseKey: name };
 
         updateAuthor(patchPayload).then(() => {
-          getAuthors().then(showAuthors);
+          getAuthors(`${firebase.auth().currentUser.uid}`).then((authors) => showAuthors(authors));
         });
       });
     }
