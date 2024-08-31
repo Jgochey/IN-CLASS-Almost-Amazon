@@ -2,10 +2,12 @@
 import firebase from 'firebase';
 import { signOut } from '../utils/auth';
 import { getBooks, booksOnSale, favoriteAuthors } from '../api/bookData';
+// import { emptyBooks, showBooks } from '../pages/books';
 import { showBooks } from '../pages/books';
 // eslint-disable-next-line no-unused-vars
 import { getAuthors, getAuthorBooks } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
+// import renderToDOM from '../utils/renderToDom';
 
 // navigation events
 const navigationEvents = () => {
@@ -16,14 +18,13 @@ const navigationEvents = () => {
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
     booksOnSale(`${firebase.auth().currentUser.uid}`).then(showBooks);
-    console.warn('CLICKED SALE BOOKS');
+    // console.warn('CLICKED SALE BOOKS');
   });
-  // Returns a blank page immediately after submitting for some reason. But clicking on Books on Sale works properly.
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     getBooks(`${firebase.auth().currentUser.uid}`).then(showBooks);
-    console.warn('CLICKED ALL BOOKS');
+    // console.warn('CLICKED ALL BOOKS');
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -33,13 +34,13 @@ const navigationEvents = () => {
   document.querySelector('#authors').addEventListener('click', () => {
     getAuthors(`${firebase.auth().currentUser.uid}`).then(showAuthors);
 
-    console.warn('CLICKED AUTHORS');
+    // console.warn('CLICKED AUTHORS');
     // getAuthors().then(showAuthors);
   });
 
   document.querySelector('#faveAuthors').addEventListener('click', () => {
     favoriteAuthors(`${firebase.auth().currentUser.uid}`).then(showAuthors);
-    console.warn('CLICKED FAVORITE AUTHORS');
+    // console.warn('CLICKED FAVORITE AUTHORS');
   });
 
   // STRETCH: SEARCH
